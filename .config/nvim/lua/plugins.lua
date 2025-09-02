@@ -81,6 +81,7 @@ return {
                     "make",
                     "python",
                     "rust",
+                    "haskell",
                     "yaml",
                 },
                 highlight = { enable = true },
@@ -92,6 +93,8 @@ return {
             vim.cmd [[ highlight link pythonTSKeywordOperator Keyword ]]
         end
     },
+
+    { "mfussenegger/nvim-jdtls" },
 
     {
         "neovim/nvim-lspconfig",
@@ -116,6 +119,9 @@ return {
             local lspconfig = require("lspconfig")
             vim.diagnostic.config { signs = false, update_in_insert = false }
 
+            local map = vim.api.nvim_set_keymap
+            map("n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", {})
+
             lspconfig.pylsp.setup {
                 on_attach = on_attach,
             }
@@ -126,9 +132,13 @@ return {
                 on_attach = on_attach
             }
             lspconfig.rust_analyzer.setup {
-                on_attach = on_attach
+                on_attach = on_attach,
+                settings = {
+                  ["rust-analyzer"] = {
+                    completion = { autoimport = { enable = false } },
+                  },
+              },
             }
-
         end,
     },
 
@@ -212,6 +222,7 @@ return {
     {
         "hrsh7th/nvim-cmp",
         event = "InsertEnter",
+        enable = false,
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-path",
@@ -226,8 +237,8 @@ return {
             local luasnip = require("luasnip")
             cmp.setup {
                 mapping = cmp.mapping.preset.insert({
-                    -- ["<C-n>"] = cmp.mapping.select_next_item(),
-                    -- ["<C-p>"] = cmp.mapping.select_prev_item(),
+                    ["<C-n>"] = cmp.mapping.select_next_item(),
+                    ["<C-p>"] = cmp.mapping.select_prev_item(),
                     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
                     ["<C-f>"] = cmp.mapping.scroll_docs(4),
                     ["<Tab>"] = cmp.mapping.confirm({ select = true }),
@@ -282,9 +293,16 @@ return {
                     expand = function(args)
                         luasnip.lsp_expand(args.body)
                     end
-                }
+                },
+                entry_filter = function(entry, ctx)
+                    -- only filter for Rust files (optional; drop for all if you like)
+                    if ctx.ft == "rust" then
+                        -- `additionalTextEdits` is exactly where RA tucks in the `use …` import
+                        return not entry.completion_item.additionalTextEdits
+                    end
+                    return true
+                end,
             }
-        end
+        end,
     },
-
 }

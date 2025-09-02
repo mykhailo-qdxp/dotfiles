@@ -13,9 +13,10 @@ compinit
 
 PS1="[%F{6}%n@%m %F{1}%1~%F{7}]$ "
 
-export LC_TIME="C.UTF-8"
-export LC_PAPER="C.UTF-8"
-export LC_MEASUREMENT="C.UTF-8"
+export MANWIDTH=90
+
+export VISUAL=nvim
+export EDITOR="$VISUAL"
 set -o vi
 
 alias ls='ls --color=auto'
@@ -27,3 +28,5 @@ if command -v tmux >/dev/null 2>&1; then
     exec tmux
   fi
 fi
+
+[ -f "/home/mykhailo/.ghcup/env" ] && . "/home/mykhailo/.ghcup/env" # ghcup-env

@@ -1,7 +1,6 @@
 local map = vim.api.nvim_set_keymap
 
 map('', 'Y', 'y$', {})                              -- 'Y' yank to the end of the line
-map('i', 'kj', '<esc>', {})                         -- kj to exit insert mode
 map('', 'Q', '<nop>', {})                           -- remove visual mode keybinding
 map('n', '<leader>sc', '<cmd>source $MYVIMRC<cr>', {})  -- source vimrc
 -- map('n', '<leader>;', 'mqA;<esc>`q', {})            -- put semicolon at the end of line
