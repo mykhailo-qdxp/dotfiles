@@ -21,12 +21,10 @@ set -o vi
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias vi='nvim'
+alias vim='nvim'
 
 if command -v tmux >/dev/null 2>&1; then
   if [ -z "$TMUX" ] && [ -n "$PS1" ]; then
     exec tmux
   fi
 fi
-
-[ -f "/home/mykhailo/.ghcup/env" ] && . "/home/mykhailo/.ghcup/env" # ghcup-env
