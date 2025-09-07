@@ -22,7 +22,6 @@ set -o vi
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias vim='nvim'
-alias emacs='emacs --no-window-system'
 
 if command -v tmux >/dev/null 2>&1; then
   if [ -z "$TMUX" ] && [ -n "$PS1" ]; then
