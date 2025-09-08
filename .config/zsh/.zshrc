@@ -24,8 +24,14 @@ alias grep='grep --color=auto'
 alias vim='nvim'
 alias emacs='emacs --no-window-system'
 
+if [ -z "${WAYLAND_DISPLAY}" ] && [ "${TTY}" = "/dev/pts/1" ]; then
+    echo "Starting sway ..."
+    WLR_DRM_DEVICES=/dev/dri/card0 dbus-run-session sway
+fi
+
 if command -v tmux >/dev/null 2>&1; then
   if [ -z "$TMUX" ] && [ -n "$PS1" ]; then
     exec tmux
   fi
 fi
+
