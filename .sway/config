@@ -7,7 +7,7 @@
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
-set $mod Mod1
+set $mod Mod4
 # Home row direction keys, like vim
 set $left h
 set $down j
@@ -21,7 +21,7 @@ set $menu wmenu-run
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/wallpapers/Next/contents/images_dark/1920x1080.png fill
+output "*" bg ~/Pictures/wallpapers/eromanga-sensei-anime-series-izumi-sagiri-holding-a-sword-wallpaper-1920x1080_48.png fill
 #
 # Example configuration:
 #
@@ -48,7 +48,7 @@ exec gentoo-pipewire-launcher restart &
 ### Input configuration
 
 input type:keyboard {
-    xkb_layout us,ru
+    xkb_layout us,ru,sk(qwerty_bksl)
     xkb_options ctrl:swapcaps,grp:rctrl_rshift_toggle
 }
 
@@ -221,8 +221,8 @@ bindsym $mod+r mode "resize"
     bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_SOURCE@ toggle
     
    # Special keys to adjust brightness via brightnessctl
-    bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
-    bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+    bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+    bindsym XF86MonBrightnessUp exec xbacklight -inc 5
     # Special key to take a screenshot with grim
     bindsym Print exec grim
     # Swaylock

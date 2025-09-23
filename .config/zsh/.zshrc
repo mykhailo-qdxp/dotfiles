@@ -26,7 +26,7 @@ alias emacs='emacs --no-window-system'
 
 if [ -z "${WAYLAND_DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
     echo "Starting sway ..."
-    WLR_DRM_DEVICES=/dev/dri/card0 dbus-run-session sway
+    XDG_CURRENT_DESKTOP=sway WLR_DRM_DEVICES=/dev/dri/card0 dbus-run-session sway 
 fi
 
 if command -v tmux >/dev/null 2>&1; then
